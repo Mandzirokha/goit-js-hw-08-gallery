@@ -63,3 +63,98 @@ const galleryItems = [
     description: 'Lighthouse Coast Sea',
   },
 ];
+
+const galleryContainer = document.querySelector('ul.js-gallery');
+const galleryMarkup = createGalleryMarkup(galleryItems);
+const imageRef = document.querySelector('.gallery__image');
+
+const lightboxRefs = document.querySelector('.js-lightbox');
+const closeModalButtonRefs = document.querySelector('[data-action="close-lightbox"]');
+const lightboxImageRefs = document.querySelector('.lightbox__image');
+
+galleryContainer.insertAdjacentHTML('beforeend', galleryMarkup);
+galleryContainer.addEventListener('click', onGallerryImageClick);
+
+closeModalButtonRefs.addEventListener('click', onCloseModal);
+
+
+function createGalleryMarkup(galleryItems) {
+  return galleryItems
+    .map(({ preview, original, description }) => {
+      return `
+      <li class="gallery__item">
+        <a
+          class="gallery__link"
+          href="${original}"
+        >
+          <img
+            class ="gallery__image"
+            src="${preview}"
+            data-source ="${original}"
+            alt="${description}"
+          />
+        </a>
+      </li>`;
+    })
+    .join('');
+}
+
+function onGallerryImageClick(event) {
+  event.preventDefault();
+  if (!event.target.classList.contains('gallery__image')) {
+    return;
+  }
+  
+    onOpenModal();
+    lightboxImageRefs.src = event.target.getAttribute('data-source');
+    lightboxImageRefs.alt = event.target.alt;
+}
+
+
+function onOpenModal() {
+  lightboxRefs.classList.add('is-open');
+}
+
+function onCloseModal() {
+  lightboxRefs.classList.remove('is-open');
+  lightboxImageRefs.removeAttribute('src');
+  lightboxImageRefs.removeAttribute('alt');
+}
+
+
+// const refs = {
+//   openModalBtn: document.querySelector('[data-action="open-modal"]'),
+//   closeModalBtn: document.querySelector('[data-action="close-modal"]'),
+//   backdrop: document.querySelector('.js-backdrop'),
+// };
+
+// refs.openModalBtn.addEventListener('click', onOpenModal);
+// refs.closeModalBtn.addEventListener('click', onCloseModal);
+// refs.backdrop.addEventListener('click', onBackdropClick);
+
+// window.addEventListener('keydown', onEscKeyPress);
+
+// function onOpenModal() {
+//   window.addEventListener('keydown', onEscKeyPress);
+//   document.body.classList.add('show-modal');
+// }
+
+// function onCloseModal() {
+//   window.removeEventListener('keydown', onEscKeyPress);
+//   document.body.classList.remove('show-modal');
+// }
+
+// function onBackdropClick(event) {
+//   // console.log('click on backdrop');
+//   // console.log(event.currentTarget);
+//   // console.log(event.target);
+//   if (event.target === event.currentTarget) {
+//     onCloseModal();
+//   }
+// }
+
+// function onEscKeyPress(event) {
+//   if (event.code === 'Escape') {
+//     onCloseModal();
+//   }
+// }
