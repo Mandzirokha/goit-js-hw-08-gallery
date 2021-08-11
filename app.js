@@ -71,11 +71,13 @@ const imageRef = document.querySelector('.gallery__image');
 const lightboxRefs = document.querySelector('.js-lightbox');
 const closeModalButtonRefs = document.querySelector('[data-action="close-lightbox"]');
 const lightboxImageRefs = document.querySelector('.lightbox__image');
+const ligthboxOverlayRefs = document.querySelector('.lightbox__overlay');
 
 galleryContainer.insertAdjacentHTML('beforeend', galleryMarkup);
 galleryContainer.addEventListener('click', onGallerryImageClick);
 
 closeModalButtonRefs.addEventListener('click', onCloseModal);
+ligthboxOverlayRefs.addEventListener('click', onCloseModal);
 
 
 function createGalleryMarkup(galleryItems) {
@@ -112,49 +114,47 @@ function onGallerryImageClick(event) {
 
 
 function onOpenModal() {
+  // window.addEventListener('keydown', onClickRight);
+  window.addEventListener('keydown', onClickLeft);
+  window.addEventListener('keydown', onEscKeyPress);
   lightboxRefs.classList.add('is-open');
 }
 
 function onCloseModal() {
+  window.removeEventListener('keydown', onEscKeyPress);
   lightboxRefs.classList.remove('is-open');
   lightboxImageRefs.removeAttribute('src');
   lightboxImageRefs.removeAttribute('alt');
 }
 
+function onEscKeyPress(event) {
+  if (event.code === 'Escape') {
+    onCloseModal();
+  }
+}
 
-// const refs = {
-//   openModalBtn: document.querySelector('[data-action="open-modal"]'),
-//   closeModalBtn: document.querySelector('[data-action="close-modal"]'),
-//   backdrop: document.querySelector('.js-backdrop'),
-// };
-
-// refs.openModalBtn.addEventListener('click', onOpenModal);
-// refs.closeModalBtn.addEventListener('click', onCloseModal);
-// refs.backdrop.addEventListener('click', onBackdropClick);
-
-// window.addEventListener('keydown', onEscKeyPress);
-
-// function onOpenModal() {
-//   window.addEventListener('keydown', onEscKeyPress);
-//   document.body.classList.add('show-modal');
+// ArrowLeft
+// function onClickRight(event) {
+//   if (event.code === 'ArrowRight') {
+//     event.preventDefault();
+//     lightboxImageRefs.src = event.target.getAttribute('data-source') + nex
+//     lightboxImageRefs.alt = event.target.alt;
+// }
+//     console.log(event.code)
 // }
 
-// function onCloseModal() {
-//   window.removeEventListener('keydown', onEscKeyPress);
-//   document.body.classList.remove('show-modal');
-// }
-
-// function onBackdropClick(event) {
-//   // console.log('click on backdrop');
-//   // console.log(event.currentTarget);
-//   // console.log(event.target);
-//   if (event.target === event.currentTarget) {
-//     onCloseModal();
-//   }
-// }
-
-// function onEscKeyPress(event) {
-//   if (event.code === 'Escape') {
-//     onCloseModal();
+// const onClickLeft = function (event) {
+//   const key = event.code;
+//   switch (key) {
+//     case 'ArrowLeft':
+//       galleryItems.forEach((elem, index, arr) => {
+//         if (elem.original === lightboxImageRefs.src) {
+//           if (index === 0) {
+//             return;
+//           }
+//           lightboxImageRefs.src = arr[index - 1].original;
+//           return;
+//         }
+//       });
 //   }
 // }
