@@ -115,7 +115,7 @@ function onGallerryImageClick(event) {
 
 function onOpenModal() {
   // window.addEventListener('keydown', onClickRight);
-  window.addEventListener('keydown', onClickLeft);
+  // window.addEventListener('keydown', onClickLeft);
   window.addEventListener('keydown', onEscKeyPress);
   lightboxRefs.classList.add('is-open');
 }
@@ -132,6 +132,13 @@ function onEscKeyPress(event) {
     onCloseModal();
   }
 }
+
+
+
+const imageOriginal = galleryItems.map(item => item.original);
+console.log('imageOriginal', imageOriginal);
+
+
 
 // ArrowLeft
 // function onClickRight(event) {
