@@ -106,16 +106,12 @@ function onGallerryImageClick(event) {
   if (!event.target.classList.contains('gallery__image')) {
     return;
   }
-  
     onOpenModal();
     lightboxImageRefs.src = event.target.getAttribute('data-source');
     lightboxImageRefs.alt = event.target.alt;
 }
 
-
 function onOpenModal() {
-  // window.addEventListener('keydown', onClickRight);
-  // window.addEventListener('keydown', onClickLeft);
   window.addEventListener('keydown', onEscKeyPress);
   lightboxRefs.classList.add('is-open');
 }
@@ -132,36 +128,3 @@ function onEscKeyPress(event) {
     onCloseModal();
   }
 }
-
-
-
-const imageOriginal = galleryItems.map(item => item.original);
-console.log('imageOriginal', imageOriginal);
-
-
-
-// ArrowLeft
-// function onClickRight(event) {
-//   if (event.code === 'ArrowRight') {
-//     event.preventDefault();
-//     lightboxImageRefs.src = event.target.getAttribute('data-source') + nex
-//     lightboxImageRefs.alt = event.target.alt;
-// }
-//     console.log(event.code)
-// }
-
-// const onClickLeft = function (event) {
-//   const key = event.code;
-//   switch (key) {
-//     case 'ArrowLeft':
-//       galleryItems.forEach((elem, index, arr) => {
-//         if (elem.original === lightboxImageRefs.src) {
-//           if (index === 0) {
-//             return;
-//           }
-//           lightboxImageRefs.src = arr[index - 1].original;
-//           return;
-//         }
-//       });
-//   }
-// }
